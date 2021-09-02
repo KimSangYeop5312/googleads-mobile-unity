@@ -355,7 +355,6 @@ public class GoogleAdMobController : MonoBehaviour
         }
         if (appOpenAd == null)
         {
-            statusText.text = "AppOpenAd not loaded.";
             return;
         }
         // Register for ad events.
@@ -408,6 +407,33 @@ public class GoogleAdMobController : MonoBehaviour
             });
         };
         appOpenAd.Show();
+    }
+
+    #endregion
+
+
+    #region ADINSPECTOR
+
+    public void ShowAdInspector()
+    {
+        statusText.text = "Show AdInspector.";
+
+        MobileAds.OpenAdInspector((error) =>
+        {
+            if (error == null)
+            {
+                MobileAdsEventExecutor.ExecuteInUpdate(() => {
+                    statusText.text = "AdInspector closed.";
+                });
+            }
+            else
+            {
+                string msg = error.GetMessage();
+                MobileAdsEventExecutor.ExecuteInUpdate(() => {
+                    statusText.text = "AdInspector show failed, error: " + msg;
+                });
+            }
+        });
     }
 
     #endregion
