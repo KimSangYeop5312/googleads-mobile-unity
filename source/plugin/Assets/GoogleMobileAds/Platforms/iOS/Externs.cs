@@ -405,6 +405,15 @@ namespace GoogleMobileAds.iOS
             IntPtr rewardedInterstitialAd);
 
         #endregion
+
+        #region AdInspector externs
+
+
+        [DllImport("__Internal")]
+        internal static extern void GADUShowAdInspector(
+            IntPtr mobileAdsClient, MobileAdsClient.GADUAdInspectorClosedCallback callback);
+
+        #endregion
     }
 }
 #endif

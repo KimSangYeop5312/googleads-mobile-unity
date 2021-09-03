@@ -730,6 +730,21 @@ void GADULoadAppOpenAd(GADUTypeAppOpenAdRef appOpenAd, const char *adUnitID,
                               request:[internalRequest request]];
 }
 
+/// Makes an ad inspector show request.
+void GADUShowAdInspector(GADUTypeMobileAdsClientRef *mobileAdsClientRef,
+                                GADUAdInspectorCompletionHandler adClosedCallback) {
+  UIViewController *unityController = [GADUPluginUtil unityGLViewController];
+  [GADMobileAds.sharedInstance presentAdInspectorFromViewController:unityController
+                                     completionHandler:^(NSError *_Nullable error) {
+                                          if(adClosedCallback)
+                                          {
+                                              adClosedCallback(mobileAdsClientRef,
+                                                               (__bridge GADUTypeErrorRef)error);
+                                          }
+                                      }
+  ];
+}
+
 /// Makes a rewarded interstitial ad request.
 void GADULoadRewardedInterstitialAd(GADUTypeRewardedInterstitialAdRef rewardedInterstitialAd,
                                     const char *adUnitID, GADUTypeRequestRef request) {
